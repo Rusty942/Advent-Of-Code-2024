@@ -3,11 +3,19 @@ import re
 with open('memory.txt', 'r') as file:
     memory = file.read()
     
+doSplit= memory.split("do()")
+dontSplit = memory.split("don't()")
+
+if (doSplit[0] > dontSplit[0]):
+    start = dontSplit[0]
+else:
+    start = doSplit[0]
+    
 do = str(re.escape("do()"))
 dont =  str(re.escape("don't()"))
 dos = re.findall(f'{do}(.*?){dont}', memory)
 
-string = ""
+string = start
 for x in range (len(dos)):
     string += dos[x]
 correctMemories = re.findall("mul\(\d+,\d+\)", string)
